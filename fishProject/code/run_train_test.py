@@ -8,7 +8,7 @@ from sklearn.neighbors import KNeighborsClassifier
 
 
 seed(1)
-train_filename = '/home/genkibaskervillge/Documents/Hust/MachineLearning_DataMining/fistProject/dat/train_fish.csv'
+train_filename = '/content/gdrive/MyDrive/fistProject/dat/train_fish.csv'
 train_data = pd.read_csv(train_filename)
 # convert categorical data numerical data
 le = LabelEncoder()
@@ -23,13 +23,13 @@ print('Training size:{}'.format(X_train.shape))
 
 
 # print(y_train)
-test_filename = '/home/genkibaskervillge/Documents/Hust/MachineLearning_DataMining/fistProject/dat/test_fish.csv'
+test_filename = '/content/gdrive/MyDrive/fistProject/dat/test_fish.csv'
 test_data = pd.read_csv(test_filename)
 # convert categorical data numerical data
 le = LabelEncoder()
-label = le.fit_transform(test_data['Species'])
+label_test = le.fit_transform(test_data['Species'])
 test_data.drop("Species", axis=1, inplace=True)
-test_data["Species"] = label
+test_data["Species"] = label_test
 y_test = test_data['Species']
 X_test = test_data.drop('Species', axis=1)
 norm = StandardScaler()
@@ -44,7 +44,7 @@ y_test = y_test.to_numpy()
 # Model training
 bestK = 0
 bestAcc = 0
-for ratio in range(1, 20):
+for ratio in range(1, 100):
     print("Number of neighbours:{}".format(ratio))
     model = knn.K_Nearest_Neighbors_Classifier(K=ratio)
     model.fit(X_train, y_train)
